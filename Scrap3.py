@@ -7,11 +7,14 @@ r = requests.get(url)
 
 content = r.content
 
-soup = BeautifulSoup(content,'html.parser')
-
+soup = BeautifulSoup(content, 'html.parser')
 
 anchors = soup.find_all('a')
-# Getting all the links from the website page 
-for link in anchors:
-    print(link.get('href'))
 
+all_links = set()
+# Getting all the links from the website page and storing them in a set for uniqueness
+for link in anchors:
+    href = link.get('href')
+    if href and href != "#":
+        all_links.add(href)
+        print(href)
